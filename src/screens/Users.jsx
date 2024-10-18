@@ -8,6 +8,7 @@ function Users() {
     const [datas, setDatas] = useState([])
     const [error, setError] = useState("")
     const [searchParams, setSearchParams] = useSearchParams();
+
     const sort_by_name = searchParams.get("sort_by_name")
     const sort_by_age = searchParams.get("sort_by_age")
     //console.log("rendered")
@@ -42,7 +43,8 @@ function Users() {
 
     return (
         <div><h1>Users</h1>
-            <Link to="/users?sort_by_name=asc" style={{ textDecoration: "none", padding: 10, backgroundColor: "grey", marginRight: 10 }}>Sort Asc By Name</Link><Link to="/users?sort_by_name=dsc" style={{ textDecoration: "none", padding: 10, backgroundColor: "grey" }}>Sort Dsc By Name</Link>
+            <Link to="/users?sort_by_name=asc" style={{ textDecoration: "none", padding: 10, backgroundColor: "grey", marginRight: 10 }}>Sort Asc By Name</Link>
+            <button onClick={() => setSearchParams({ sort_by_name: "dsc", sort_by_age: "asc" })} style={{ textDecoration: "none", padding: 10, backgroundColor: "grey" }}>Sort Dsc By Name</button>
             <ul>
                 {
                     datas.map(data => <li key={data.id}><Link to={`/singleuser/${data.id}`}>{data.firstName} {data.lastName}</Link></li>)
