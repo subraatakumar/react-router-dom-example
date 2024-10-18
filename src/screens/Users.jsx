@@ -1,17 +1,21 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import sortByFirstname from '../utils/helpers/sortByFirstname'
+import { AuthContext } from '../App'
 function Users() {
     const [loading, setLoading] = useState(false)
     const [datas, setDatas] = useState([])
     const [error, setError] = useState("")
     const [searchParams, setSearchParams] = useSearchParams();
-
+    const navigate = useNavigate();
     const sort_by_name = searchParams.get("sort_by_name")
     const sort_by_age = searchParams.get("sort_by_age")
     //console.log("rendered")
+
+    const isLogedIn = useContext(AuthContext)
+
     console.log("sort_by_name: ", sort_by_name)
     console.log("sort_by_age: ", sort_by_age)
     useEffect(() => {
@@ -32,6 +36,12 @@ function Users() {
         console.log("sort by name is:", sort_by_name)
         setDatas(prev => sortByFirstname(prev, sort_by_name))
     }, [sort_by_name])
+
+    useEffect(() => {
+        if (!isLogedIn) {
+            navigate("/")
+        }
+    }, [isLogedIn])
 
     if (loading) {
         return <div>Loading...</div>
