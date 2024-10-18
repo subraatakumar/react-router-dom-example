@@ -1,16 +1,18 @@
 import { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, NavLink } from 'react-router-dom';
 import Home from './screens/Home';
 import About from './screens/About';
 import Contact from './screens/Contact';
+import "./App.css"
+
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/contact">Contact</Link>
+      <NavLink to="/" className={({ isActive, isPending }) => isActive ? "active" : "inactive"}>Home</NavLink>
+      <NavLink to="/about" className={({ isActive, isPending }) => isActive ? "active" : "inactive"}>About</NavLink>
+      <NavLink to="/contact" className={({ isActive, isPending }) => isActive ? "active" : "inactive"}>Contact</NavLink>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
